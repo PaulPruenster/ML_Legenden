@@ -1,18 +1,14 @@
 import os
 import numpy as np
 from sklearn.metrics import accuracy_score
-from pathlib import Path
 import torch
 from torch.autograd import Variable
-from torch.nn import Module
 import torch.optim as optim
 import torch.nn as nn
-import torch.nn.functional as f
 import dataset
 from torch.utils.data import DataLoader
 from CNN import CNN
 from FullyConnected import FullyConnected
-import pandas as pd
 
 # Setting the path of the training dataset (that was already provided to you)
 running_local = True if os.getenv('JUPYTERHUB_USER') is None else False
