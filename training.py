@@ -10,7 +10,6 @@ import torch.nn as nn
 import torch.nn.functional as f
 import dataset
 from torch.utils.data import DataLoader
-from RNN import RNN
 from CNN import CNN
 from FullyConnected import FullyConnected
 import pandas as pd
@@ -43,16 +42,14 @@ classes = range(1, 36)
 
 # Import Nets
 
-PATH_RNN = "./net/RNN.pt"
 PATH_CNN = "./net/CNN.pt"
 PATH_FULLY_CONNECTED = "./net/FullyConnected.pt"
 
-rnn = RNN()
 cnn = CNN()
 fully_connected = FullyConnected()
 
 # Choose what model to train
-path_trained_net = PATH_RNN
+path_trained_net = PATH_CNN
 model = cnn
 
 criterion = nn.CrossEntropyLoss()
@@ -109,13 +106,6 @@ for n_epochs in range(80, 1, -5):
             if i % 20 == 19:  # print every 2000 mini-batches
                 print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
                 running_loss = 0.0
-
-#
-# loss_arr = np.array(loss_arr)
-#
-# arr = np.stack(loss_arr)
-# pd.DataFrame(arr).to_csv('sample.csv')
-# print(arr)
 
 
 # validation batch
