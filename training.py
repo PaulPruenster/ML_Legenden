@@ -38,15 +38,15 @@ classes = range(1, 36)
 
 # Import Nets
 
-PATH_CNN = "./net/CNN.pt"
-PATH_FULLY_CONNECTED = "./net/FullyConnected_test_1.pt"
+PATH_CNN = "./net/CNN_50_epoch.pt"
+PATH_FULLY_CONNECTED = "./net/FullyConnected_50_epochen.pt"
 
 cnn = CNN()
 fully_connected = FullyConnected()
 
 # Choose what model to train
-path_trained_net = PATH_FULLY_CONNECTED
-model = fully_connected
+path_trained_net = PATH_CNN
+model = cnn
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -65,7 +65,7 @@ loss_arr = []
 iter_counter = 0
 
 # first over fit the net, then with decreasing amounts of training the net gets well-fitted
-for n_epochs in range(80, 1, -5):
+for n_epochs in range(50, 1, -5):
     print("ok")
     dataiter = iter(trainloader)
     for data_dict_train in dataiter:
@@ -95,7 +95,7 @@ for n_epochs in range(80, 1, -5):
             loss.backward()
             optimizer.step()
 
-            # loss_arr.append(loss.item())
+            loss_arr.append(loss.item())
 
             # print statistics
             running_loss += loss.item()
@@ -134,3 +134,10 @@ predictions = np.argmax(prob, axis=1)
 
 # accuracy on validation set
 print(accuracy_score(val_y, predictions))
+
+# Write the array to a file
+print("writing loss array to file...")
+with open('loss_CCN_50_epochen.txt', 'w') as file:
+    for item in loss_arr:
+        file.write(str(item) + '\n')
+print("done")
