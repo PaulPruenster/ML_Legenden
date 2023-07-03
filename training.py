@@ -39,14 +39,14 @@ classes = range(1, 36)
 # Import Nets
 
 PATH_CNN = "./net/CNN.pt"
-PATH_FULLY_CONNECTED = "./net/FullyConnected.pt"
+PATH_FULLY_CONNECTED = "./net/FullyConnected_test_1.pt"
 
 cnn = CNN()
 fully_connected = FullyConnected()
 
 # Choose what model to train
-path_trained_net = PATH_CNN
-model = cnn
+path_trained_net = PATH_FULLY_CONNECTED
+model = fully_connected
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -69,7 +69,7 @@ for n_epochs in range(80, 1, -5):
     print("ok")
     dataiter = iter(trainloader)
     for data_dict_train in dataiter:
-        print(data_dict_train["image"].shape)
+        #print(data_dict_train["image"].shape)
         train_x = data_dict_train["image"]
         train_x = train_x / 255.0
         train_y = data_dict_train["label"]
@@ -105,7 +105,7 @@ for n_epochs in range(80, 1, -5):
 
 
 # validation batch
-data_dict_val = iter(trainloader).next()
+data_dict_val = next(iter(trainloader))
 val_x = data_dict_train["image"]
 val_x = val_x / 255.0
 val_y = data_dict_train["label"]
