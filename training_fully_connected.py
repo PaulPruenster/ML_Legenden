@@ -25,7 +25,7 @@ if running_local:
 else:
     # If running on the Jupyter hub, this data folder is already available
     # You DO NOT need to upload the data!
-    DATASET_PATH = "/data/mlproject23/sign_lang_train"
+    DATASET_PATH = "/data/mlproject22/sign_lang_train"
 
 # importing the dataset
 sign_lang_dataset = dataset.SignLangDataset(csv_file="labels.csv", root_dir=DATASET_PATH)
