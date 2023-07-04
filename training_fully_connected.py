@@ -25,7 +25,7 @@ if running_local:
 else:
     # If running on the Jupyter hub, this data folder is already available
     # You DO NOT need to upload the data!
-    DATASET_PATH = "/data/mlproject22/sign_lang_train"
+    DATASET_PATH = "/data/mlproject23/sign_lang_train"
 
 # importing the dataset
 sign_lang_dataset = dataset.SignLangDataset(csv_file="labels.csv", root_dir=DATASET_PATH)
@@ -43,8 +43,8 @@ cnn = CNN()
 fully_connected = FullyConnected()
 
 # Choose what model to train
-path_trained_net = PATH_CNN
-model = cnn
+path_trained_net = PATH_FULLY_CONNECTED
+model = fully_connected
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
@@ -81,7 +81,7 @@ for n_epochs in range(50, 1, -5):
                 labels = labels.cuda()
 
             # zero the parameter gradients
-            optimizer.zero_grad()
+            #optimizer.zero_grad()
 
             # forward + backward + optimize
             outputs = model(inputs)
@@ -130,8 +130,8 @@ predictions = np.argmax(prob, axis=1)
 print(accuracy_score(val_y, predictions))
 
 # Write the array to a file
-print("writing loss array to file...")
-with open('loss_CCN_50_epochen.txt', 'w') as file:
-    for item in loss_arr:
-        file.write(str(item) + '\n')
-print("done")
+#print("writing loss array to file...")
+#with open('loss_CCN_50_epochen.txt', 'w') as file:
+#    for item in loss_arr:
+#        file.write(str(item) + '\n')
+#print("done")
