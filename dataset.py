@@ -47,15 +47,13 @@ class SignLangDataset(Dataset):
         # Read the image and labels
         image_path = os.path.join(self.root_dir, self.data[idx][1])
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
         # Shape of the image should be H,W,C where C=1
         image = np.expand_dims(image, 0)
+
         # The label is the index of the class name in the list ['0','1',...,'9','a','b',...'z']
         # because we should have integer labels in the range 0-35 (for 36 classes)
         label = self.class_names.index(self.data[idx][0])
-
         sample = {'image': image, 'label': label}
-
-        # if self.transform:
-        #    sample = self.transform(sample)
 
         return sample
