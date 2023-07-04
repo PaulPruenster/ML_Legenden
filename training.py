@@ -34,10 +34,6 @@ trainloader = DataLoader(sign_lang_dataset,
                          drop_last=True,
                          num_workers=0)
 
-classes = range(1, 36)
-
-# Import Nets
-
 PATH_CNN = "./net/CNN_50_epoch.pt"
 PATH_FULLY_CONNECTED = "./net/FullyConnected_50_epochen.pt"
 
@@ -58,9 +54,7 @@ if torch.cuda.is_available():
 
 print(model)
 
-# defining the number of epochs
 epoch = 0
-
 loss_arr = []
 iter_counter = 0
 
@@ -69,15 +63,13 @@ for n_epochs in range(50, 1, -5):
     print("ok")
     dataiter = iter(trainloader)
     for data_dict_train in dataiter:
-        #print(data_dict_train["image"].shape)
+        train_y = data_dict_train["label"]
         train_x = data_dict_train["image"]
         train_x = train_x / 255.0
-        train_y = data_dict_train["label"]
 
-        running_loss = 0.0
         epoch += 1
+        running_loss = 0.0
         for i in range(n_epochs):
-
             # getting the training set
             inputs, labels = Variable(train_x), Variable(train_y)
 
@@ -95,9 +87,9 @@ for n_epochs in range(50, 1, -5):
             loss.backward()
             optimizer.step()
 
+            # add the loss to an array for the plot
             loss_arr.append(loss.item())
 
-            # print statistics
             running_loss += loss.item()
             if i % 20 == 19:  # print every 2000 mini-batches
                 print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
