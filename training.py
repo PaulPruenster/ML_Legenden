@@ -1,12 +1,14 @@
 import os
 import numpy as np
+import dataset
 from sklearn.metrics import accuracy_score
+
 import torch
 from torch.autograd import Variable
 import torch.optim as optim
 import torch.nn as nn
-import dataset
 from torch.utils.data import DataLoader
+
 from CNN import CNN
 from FullyConnected import FullyConnected
 
